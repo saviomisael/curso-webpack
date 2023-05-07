@@ -1,0 +1,21 @@
+.warning {
+  color: red;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-family: sans-serif;
+  text-align: center;
+  animation: toggle-background 1s infinite;
+  padding: 10px;
+}
+
+@keyframes toggle-background {
+  0% {
+    background-color: blue;
+  }
+  50% {
+    background-color: yellow;
+  }
+  100% {
+    background-color: blue;
+  }
+}
