@@ -18,3 +18,5 @@ let { a, ...rest } = obj;
 console.log(a, rest);
 
 document.body.insertAdjacentHTML('afterbegin', warning);
+
+console.log(process.env.API_KEY);
