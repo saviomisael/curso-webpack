@@ -1,17 +1,25 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
 const DotenvPlugin = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const path = require('path');
-
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: './src/app.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
     clean: true,
+  },
+  devServer: {
+    port: 8082,
+    static: [
+      {
+        directory: path.join(__dirname, 'dist'),
+      },
+    ],
   },
   module: {
     rules: [
@@ -44,6 +52,14 @@ module.exports = {
       filename: '[name].[contenthash].css',
     }),
     new DotenvPlugin(),
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'Curso Webpack',
+      template: path.join(__dirname, 'public', 'index.html'),
+      favicon: path.join(__dirname, 'public', 'penguin.png'),
+    }),
   ],
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+  },
 };
