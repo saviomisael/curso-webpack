@@ -20,3 +20,11 @@ console.log(a, rest);
 document.body.insertAdjacentHTML('afterbegin', warning);
 
 console.log(process.env.API_KEY);
+
+console.log(process.env.NODE_ENV);
+
+if (process.env.NODE_ENV === 'production') {
+  console.log('production');
+} else {
+  console.log('development');
+}
