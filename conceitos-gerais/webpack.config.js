@@ -4,10 +4,21 @@ const TerserPlugin = require('terser-webpack-plugin');
 const DotenvPlugin = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
-  entry: './src/app.js',
+  entry: {
+    index: {
+      import: './src/app.js',
+      dependOn: 'shared',
+    },
+    test: {
+      import: './src/test.js',
+      dependOn: 'shared',
+    },
+    shared: 'lodash',
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
@@ -20,6 +31,7 @@ module.exports = {
         directory: path.join(__dirname, 'dist'),
       },
     ],
+    hot: true,
   },
   module: {
     rules: [
@@ -56,6 +68,9 @@ module.exports = {
       title: 'Curso Webpack',
       template: path.join(__dirname, 'public', 'index.html'),
       favicon: path.join(__dirname, 'public', 'penguin.png'),
+    }),
+    new webpack.ProvidePlugin({
+      _: 'lodash',
     }),
   ],
   optimization: {

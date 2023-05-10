@@ -2,12 +2,23 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const DotenvPlugin = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 const path = require('path');
 
 module.exports = {
   mode: 'production',
-  entry: './src/app.js',
+  entry: {
+    index: {
+      import: './src/app.js',
+      dependOn: 'shared',
+    },
+    test: {
+      import: './src/test.js',
+      dependOn: 'shared',
+    },
+    shared: 'lodash',
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
@@ -48,6 +59,9 @@ module.exports = {
       title: 'Curso Webpack',
       template: path.join(__dirname, 'public', 'index.html'),
       favicon: path.join(__dirname, 'public', 'penguin.png'),
+    }),
+    new webpack.ProvidePlugin({
+      _: 'lodash',
     }),
   ],
 };
