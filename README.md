@@ -1,0 +1,1 @@
+Código desenvolvido no curso [Webpack do básico ao avançado + Projeto e Micro-frontend](https://www.udemy.com/course/webpack-do-basico-ao-avancado-com-projeto/).
